@@ -23,9 +23,9 @@ class FinalAnswer(BaseModel):
         ...,
         description="HIGH: current authoritative sources cover question and all inputs present. MEDIUM: relevant authoritative source exists but non-critical detail missing. LOW: no authoritative source, conflict, or key input missing."
     )
-    confidence_gap: str = Field(
-        ...,
-        description="Explanation of what is missing, stale, or conflicting."
+    confidence_gap: Optional[str] = Field(
+        None,
+        description="Explanation of what is missing, stale, or conflicting. Omitted or null if there is no gap."
     )
     focused_clarification: Optional[str] = Field(
         None,
