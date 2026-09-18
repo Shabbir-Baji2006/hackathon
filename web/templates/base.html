@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}LoopKit{% endblock %} — Evidence-Aware Research Agent</title>
+    <meta name="description" content="Hand-written Plan-Act-Observe-Repeat agent core with autonomous tool selection and honest uncertainty.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <canvas id="bgCanvas"></canvas>
+    
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <rect x="1" y="1" width="8" height="8" stroke="currentColor" stroke-width="1.5"/>
+                <rect x="11" y="1" width="8" height="8" stroke="currentColor" stroke-width="1.5"/>
+                <rect x="1" y="11" width="8" height="8" stroke="currentColor" stroke-width="1.5"/>
+                <rect x="11" y="11" width="8" height="8" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            LoopKit
+        </a>
+        <div class="navbar-links">
+            <a href="#overview" class="nav-link">Overview</a>
+            <a href="#scenarios" class="nav-link">Scenarios</a>
+            <a href="#query" class="nav-link">Live Query</a>
+        </div>
+        <div class="navbar-status">
+            <span class="status-pip {% if planner.status == 'live' %}pip-live{% else %}pip-demo{% endif %}"></span>
+            <span class="status-text">{{ planner.label }}</span>
+        </div>
+    </nav>
+
+    <div class="page-content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer class="footer">
+        <span>LoopKit v1.0 — Hand-written agent core. Zero frameworks.</span>
+        <span>Plan → Act → Observe → Repeat</span>
+    </footer>
+
+    <!-- Core App Logic -->
+    <script src="/static/js/app.js"></script>
+    
+    <!-- Three.js Background Logic -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="/static/js/three_bg.js"></script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>

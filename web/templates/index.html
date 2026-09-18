@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block title %}LoopKit{% endblock %}
+{% block content %}
+
+<!-- 1. OVERVIEW -->
+<section id="overview" class="section reveal" style="min-height: 90vh; display: flex; align-items: center;">
+    <div class="hero" style="margin-top: 0;">
+        <div class="hero-eyebrow">Track 2 — Build the Brain, Not the Puppet</div>
+        <h1 class="hero-title">A research agent built<br>from scratch.</h1>
+        <p class="hero-lead">No LangChain. No AutoGen. No CrewAI. Just a hand-written Python loop that plans, acts,
+            observes, and repeats — with two real tools and honest uncertainty.</p>
+        <div class="hero-cta">
+            <a href="#scenarios" class="btn btn-primary">Run Scenarios</a>
+            <a href="#query" class="btn btn-outline">Live Query</a>
+        </div>
+    </div>
+</section>
+
+<div class="divider reveal"></div>
+
+
+
+<!-- 3. SCENARIOS -->
+<section id="scenarios" class="section reveal" style="padding-top: 6rem;">
+    <div class="page-header" style="margin-bottom: 2rem;">
+        <div>
+            <div class="page-eyebrow">8 edge-case scenarios</div>
+            <h1 class="page-title">Verification Scenarios</h1>
+        </div>
+    </div>
+
+    <div class="scenario-categories">
+        <button class="cat-btn active" data-cat="all">All</button>
+        <button class="cat-btn" data-cat="chain">Tool Chain</button>
+        <button class="cat-btn" data-cat="uncertainty">Uncertainty</button>
+        <button class="cat-btn" data-cat="recovery">Error Recovery</button>
+        <button class="cat-btn" data-cat="math">Math</button>
+        <button class="cat-btn" data-cat="safety">Safety</button>
+    </div>
+
+    <div class="scenario-grid" id="scenarioGrid">
+        {% for sc in scenarios %}
+        <button class="scenario-card" data-id="{{ sc.id }}" data-cat="{{ sc.category }}">
+            <div class="sc-tag">{{ sc.tag }}</div>
+            <div class="sc-title">{{ sc.title }}</div>
+            <div class="sc-desc">{{ sc.desc }}</div>
+            <div class="sc-run">Run →</div>
+        </button>
+        {% endfor %}
+    </div>
+</section>
+
+<div class="divider reveal"></div>
+
+<!-- 4. CUSTOM QUERY -->
+<section id="query" class="section reveal" style="padding-top: 6rem; padding-bottom: 4rem;">
+    <div class="page-header">
+        <div>
+            <div class="page-eyebrow">Live agent execution</div>
+            <h1 class="page-title">Custom Query</h1>
+        </div>
+    </div>
+
+    <div class="query-box">
+        <form id="queryForm">
+            <div class="query-input-row">
+                <input type="text" id="queryInput" class="query-input"
+                    placeholder="e.g. What is the market cap of Nvidia divided by its employees?" autocomplete="off"
+                    maxlength="500" required>
+                <button type="submit" id="submitBtn" class="btn btn-primary">Run</button>
+            </div>
+            <div class="query-suggestions">
+                <span class="suggestion-label">Try:</span>
+                <button type="button" class="suggestion-chip" data-q="What is the square root of 2025 times 144?">Math
+                    calculation</button>
+                <button type="button" class="suggestion-chip" data-q="What is India's GDP growth rate in 2024?">Research
+                    query</button>
+            </div>
+        </form>
+<div class="divider reveal"></div>
+
+<!-- 5. UNIFIED RESULT SECTION -->
+<div id="loadingIndicator" class="loading-block hidden" style="margin-bottom: 4rem;">
+    <div class="loading-bar">
+        <div class="loading-fill"></div>
+    </div>
+    <div class="loading-text">Executing hand-written agent loop<span class="dots">...</span></div>
+</div>
+
+<section id="resultSection" class="result-section hidden" style="margin-bottom: 10rem;">
+    <div class="result-header">
+        <h2 class="result-title">Execution Result</h2>
+        <div class="result-meta">
+            <span class="confidence-badge" id="confidenceBadge">—</span>
+            <span class="step-count" id="stepCountBadge"></span>
+        </div>
+    </div>
+
+    <div class="result-grid">
+        <div class="result-main">
+            <div class="result-card">
+                <div class="rc-label">ANSWER</div>
+                <p id="bestAnswerText" class="rc-answer"></p>
+            </div>
+            <div class="result-card gap-card">
+                <div class="rc-label">EVIDENTIARY GAP</div>
+                <p id="gapText" class="rc-body"></p>
+            </div>
+            <div id="clarificationCard" class="result-card clarification-card hidden">
+                <div class="rc-label">CLARIFICATION NEEDED</div>
+                <p id="clarificationText" class="rc-body"></p>
+            </div>
+            <div id="comparisonCard" class="result-card hidden">
+                <div class="rc-label">VS. LANGCHAIN</div>
+                <p id="comparisonText" class="rc-body" style="font-style: italic; color: var(--text-dim);"></p>
+            </div>
+            <div id="citationsWrapper" class="citations-section hidden">
+                <div class="rc-label">SOURCES</div>
+                <div id="citationsList"></div>
+            </div>
+        </div>
+
+        <div class="result-sidebar">
+            <div class="timeline-header-row">
+                <div class="rc-label">EXECUTION TRACE</div>
+                <button id="toggleTraceBtn" class="trace-toggle">Raw JSONL</button>
+            </div>
+            <div id="timelineSteps" class="timeline"></div>
+            <div id="rawTraceWrapper" class="raw-trace hidden">
+                <pre><code id="rawTraceCode"></code></pre>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

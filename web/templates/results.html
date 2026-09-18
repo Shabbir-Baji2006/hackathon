@@ -1,0 +1,43 @@
+<div class="final-answer-card glass-panel">
+    <div class="answer-header">
+        <div class="confidence-badge-wrapper">
+            <span class="confidence-badge" id="confidenceBadge">CONFIDENCE: --</span>
+        </div>
+        <span class="step-count-badge" id="stepCountBadge">Step 0 of 0</span>
+    </div>
+
+    <div class="answer-body">
+        <h4>BEST ANSWER SO FAR</h4>
+        <p id="bestAnswerText" class="best-answer"></p>
+
+        <div class="gap-card">
+            <h5>EVIDENTIARY GAP & LIMITATIONS</h5>
+            <p id="gapText"></p>
+        </div>
+
+        <div id="clarificationCard" class="clarification-card hidden">
+            <h5>FOCUSED CLARIFICATION REQUIRED</h5>
+            <p id="clarificationText"></p>
+        </div>
+    </div>
+
+    <!-- Citations -->
+    <div id="citationsWrapper" class="citations-wrapper hidden">
+        <h4>AUTHORITATIVE CITATIONS & EVIDENCE</h4>
+        <div id="citationsList" class="citations-list"></div>
+    </div>
+</div>
+
+<!-- Execution Step Timeline & Trace -->
+<div class="timeline-container glass-panel">
+    <div class="timeline-header">
+        <h3>EXECUTION LIFECYCLE (PLAN-ACT-OBSERVE)</h3>
+        <button id="toggleTraceBtn" class="btn btn-sm btn-ghost">VIEW RAW TRACE</button>
+    </div>
+    <div id="timelineSteps" class="timeline-steps">
+        <!-- Steps populated dynamically -->
+    </div>
+    <div id="rawTraceWrapper" class="raw-trace-wrapper hidden">
+        <pre><code id="rawTraceCode"></code></pre>
+    </div>
+</div>
